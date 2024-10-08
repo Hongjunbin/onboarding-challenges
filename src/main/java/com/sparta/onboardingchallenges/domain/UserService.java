@@ -14,13 +14,18 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public SignupResponseDto signup(SignupRequestDto requestDto) {
-        String username = requestDto.getUsername();
-        String encryptedPassword = passwordEncoder.encode(requestDto.getPassword());
-        String nickname = requestDto.getNickname();
 
-        userRepository.save(new User(username, encryptedPassword, nickname));
+        if(userRepository.findByUsername(requestDto.getUsername()).isPresent()) {
+            throw new NullPointerException("null");
+        }
 
-        return new SignupResponseDto(username, nickname);
+        User user = userRepository.save(User.builder()
+                        .username(requestDto.getUsername())
+                        .encryptedPassword(passwordEncoder.encode(requestDto.getPassword()))
+                        .nickname(requestDto.getNickname())
+                        .authorities(Authorities.ROLE_USER).build());
+
+        return new SignupResponseDto(user.getUsername(), user.getNickname());
     }
 
 }
