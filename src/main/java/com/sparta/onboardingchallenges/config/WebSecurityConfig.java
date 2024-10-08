@@ -65,7 +65,8 @@ public class WebSecurityConfig {
                                 antMatcher("/api-docs/**")
                         ).permitAll()
                         .requestMatchers(
-                                "/signup"
+                                "/signup",
+                                "/sign"
                         ).permitAll().anyRequest().authenticated()
         );
 

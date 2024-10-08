@@ -19,7 +19,6 @@ import java.util.Date;
 public class JwtUtil {
 
     public static final String ACCESS_TOKEN_HEADER = "AccessToken";
-    public static final String REFRESH_TOKEN_HEADER = "RefreshToken";
     public static final String BEARER_PREFIX = "Bearer ";
     public static final long ACCESS_TOKEN_TIME = 1209600000; // 기존 1800000
     public static final long REFRESH_TOKEN_TIME = 1209600000;
@@ -61,14 +60,14 @@ public class JwtUtil {
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);
         }
-        return null;
+        return bearerToken;
     }
 
     public String refreshTokenSubstring(String refreshToken) {
         if (StringUtils.hasText(refreshToken) && refreshToken.startsWith(BEARER_PREFIX)) {
             return refreshToken.substring(7);
         }
-        return null;
+        return refreshToken;
     }
 
     public boolean validateToken(String token) {

@@ -1,6 +1,5 @@
 package com.sparta.onboardingchallenges.domain;
 
-import com.sparta.onboardingchallenges.domain.dto.SignupRequestDto;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +24,9 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
+    @Column
+    private String refreshToken;
+
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private Authorities authorities;
@@ -35,5 +37,9 @@ public class User {
         this.password = encryptedPassword;
         this.nickname = nickname;
         this.authorities = authorities;
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
