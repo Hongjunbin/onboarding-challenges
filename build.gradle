@@ -28,6 +28,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     // spring-web
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // spring-data-jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // mysql-connector
+    runtimeOnly 'com.mysql:mysql-connector-j'
     // swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
     // lombok
