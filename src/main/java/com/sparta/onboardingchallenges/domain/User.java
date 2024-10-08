@@ -2,6 +2,7 @@ package com.sparta.onboardingchallenges.domain;
 
 import com.sparta.onboardingchallenges.domain.dto.SignupRequestDto;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,9 +25,15 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
-    public User(String username, String encryptedPassword, String nickname) {
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private Authorities authorities;
+
+    @Builder
+    public User(String username, String encryptedPassword, String nickname, Authorities authorities) {
         this.username = username;
         this.password = encryptedPassword;
         this.nickname = nickname;
+        this.authorities = authorities;
     }
 }
