@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.*;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -25,12 +27,14 @@ public class UserService {
         }
 
         User user = userRepository.save(User.builder()
-                        .username(requestDto.getUsername())
-                        .encryptedPassword(passwordEncoder.encode(requestDto.getPassword()))
-                        .nickname(requestDto.getNickname())
-                        .authorities(Authorities.ROLE_USER).build());
+                .username(requestDto.getUsername())
+                .encryptedPassword(passwordEncoder.encode(requestDto.getPassword()))
+                .nickname(requestDto.getNickname())
+                .authorities(Authorities.ROLE_USER).build());
 
-        return new SignupResponseDto(user.getUsername(), user.getNickname());
+        Map<String, String> authorities = new HashMap<>();
+        authorities.put("authorityName", user.getAuthorities().name());
+        return new SignupResponseDto(user.getUsername(), user.getNickname(), authorities);
     }
 
     @Transactional
@@ -48,5 +52,4 @@ public class UserService {
 
         return new SignResponseDto(accessToken);
     }
-
 }
