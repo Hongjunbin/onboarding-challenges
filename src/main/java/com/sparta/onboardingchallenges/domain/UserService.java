@@ -46,8 +46,8 @@ public class UserService {
             throw new IllegalArgumentException("잘못된 비밀번호");
         }
 
-        String accessToken = jwtUtil.createAccessToken(user);
-        String refreshToken = jwtUtil.createRefreshToken(user);
+        String accessToken = jwtUtil.createAccessToken(user.getUsername());
+        String refreshToken = jwtUtil.createRefreshToken(user.getUsername());
         user.updateRefreshToken(refreshToken);
 
         return new SignResponseDto(accessToken);
