@@ -5,6 +5,7 @@ import com.sparta.onboardingchallenges.domain.dto.SignResponseDto;
 import com.sparta.onboardingchallenges.domain.dto.SignupRequestDto;
 import com.sparta.onboardingchallenges.domain.dto.SignupResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserController {
 
     @Operation(summary = "회원가입 기능")
     @PostMapping("/signup")
-    public ResponseEntity<SignupResponseDto> signup(@RequestBody SignupRequestDto requestDto) {
+    public ResponseEntity<SignupResponseDto> signup(@Valid @RequestBody SignupRequestDto requestDto) {
         SignupResponseDto responseDto = userService.signup(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
