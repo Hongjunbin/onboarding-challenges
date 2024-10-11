@@ -1,5 +1,7 @@
 package com.sparta.onboardingchallenges.domain;
 
+import com.sparta.onboardingchallenges.common.exception.CustomException;
+import com.sparta.onboardingchallenges.common.exception.ErrorCode;
 import com.sparta.onboardingchallenges.domain.dto.SignRequestDto;
 import com.sparta.onboardingchallenges.domain.dto.SignResponseDto;
 import com.sparta.onboardingchallenges.domain.dto.SignupRequestDto;
@@ -25,7 +27,7 @@ public class UserService {
     public SignupResponseDto signup(SignupRequestDto requestDto) {
 
         if(userRepository.findByUsername(requestDto.getUsername()).isPresent()) {
-            throw new NullPointerException("null");
+            throw new CustomException(ErrorCode.USER_NOT_UNIQUE);
         }
 
         User user = userRepository.save(User.builder()
@@ -42,10 +44,10 @@ public class UserService {
     @Transactional
     public SignResponseDto sign(SignRequestDto requestDto) {
         User user = userRepository.findByUsername(requestDto.getUsername()).orElseThrow(
-                () -> new IllegalArgumentException("해당 아이디의 계정이 존재하지 않습니다.")
+                () -> new CustomException(ErrorCode.USER_NOT_FOUND)
         );
         if(!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호");
+            throw new CustomException(ErrorCode.WRONG_PASSWORD);
         }
 
         String accessToken = jwtUtil.createAccessToken(user.getUsername());
