@@ -4,6 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,6 +31,36 @@ public class GlobalExceptionHandler {
                 .path(request.getRequestURI())
                 .build();
         return new ResponseEntity<>(exceptionResponse, e.getErrorCode().getStatus());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ExceptionResponse> processValidationError(HttpServletRequest request, MethodArgumentNotValidException exception) {
+        BindingResult bindingResult = exception.getBindingResult();
+        StringBuilder builder = new StringBuilder();
+        String msg = ErrorCode.FAIL.getMessage();
+
+        if (bindingResult.hasFieldErrors()) {
+            FieldError fieldError = bindingResult.getFieldErrors().get(0);
+            String fieldName = fieldError.getField();
+
+            builder.append("[");
+            builder.append(fieldName);
+            builder.append("](은)는 ");
+            builder.append(fieldError.getDefaultMessage());
+            builder.append(" / 입력된 값: [");
+            builder.append(fieldError.getRejectedValue());
+            builder.append("]");
+
+            msg = builder.toString();
+        }
+
+        return new ResponseEntity<>(
+                ExceptionResponse.builder()
+                        .msg(msg)
+                        .path(request.getRequestURI())
+                        .build(),
+                HttpStatus.BAD_REQUEST
+        );
     }
 
 }
