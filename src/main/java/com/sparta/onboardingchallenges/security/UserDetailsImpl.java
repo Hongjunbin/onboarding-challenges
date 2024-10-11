@@ -1,6 +1,6 @@
 package com.sparta.onboardingchallenges.security;
 
-import com.sparta.onboardingchallenges.domain.User;
+import com.sparta.onboardingchallenges.domain.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

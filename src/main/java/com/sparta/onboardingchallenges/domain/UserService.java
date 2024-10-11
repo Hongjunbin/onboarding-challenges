@@ -4,6 +4,8 @@ import com.sparta.onboardingchallenges.domain.dto.SignRequestDto;
 import com.sparta.onboardingchallenges.domain.dto.SignResponseDto;
 import com.sparta.onboardingchallenges.domain.dto.SignupRequestDto;
 import com.sparta.onboardingchallenges.domain.dto.SignupResponseDto;
+import com.sparta.onboardingchallenges.domain.entity.Authorities;
+import com.sparta.onboardingchallenges.domain.entity.User;
 import com.sparta.onboardingchallenges.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
