@@ -1,6 +1,6 @@
 # ✏ 백엔드 개발 온보딩 과제 (Java)
 
-### [🏫 Swagger Link 📝] ( http://localhost:8888/swagger-ui/index.html )
+### [🏫 Swagger Link 📝] ( http://추가예정:8888/swagger-ui/index.html )
 <br>
 
 ## 📝 요구사항
