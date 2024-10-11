@@ -1,6 +1,6 @@
 package com.sparta.onboardingchallenges.security;
 
-import com.sparta.onboardingchallenges.domain.User;
+import com.sparta.onboardingchallenges.domain.entity.User;
 import com.sparta.onboardingchallenges.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

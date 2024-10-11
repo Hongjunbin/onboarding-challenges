@@ -1,4 +1,4 @@
-package com.sparta.onboardingchallenges.domain;
+package com.sparta.onboardingchallenges.domain.entity;
 
 import lombok.Getter;
 
