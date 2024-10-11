@@ -1,5 +1,7 @@
 package com.sparta.onboardingchallenges.security;
 
+import com.sparta.onboardingchallenges.common.exception.CustomException;
+import com.sparta.onboardingchallenges.common.exception.ErrorCode;
 import com.sparta.onboardingchallenges.domain.entity.User;
 import com.sparta.onboardingchallenges.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new NullPointerException("실패")
+                () -> new CustomException(ErrorCode.USER_NOT_FOUND)
         );
         return new UserDetailsImpl(user);
     }
